@@ -1,0 +1,19 @@
+name: VoteShop
+version: 0.2
+main: voteshop.VoteShop
+commands:
+  voteshop:
+    description: Open the vote shop!
+    usage: /voteshop
+  reloadvoteshop:
+    description: Reload the vote shop plugin!
+    usage: /reloadvoteshop
+    permission: voteshop.reload
+    permission-message: No no no! Not in mah house! Incorrect Permissions.
+permissions:
+  voteshop.*:
+    description: All permissions for VoteShop
+    children:
+      voteshop.reload: true
+  voteshop.reload:
+    description: Permission to reload the plugin.
