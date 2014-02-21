@@ -15,7 +15,6 @@
 		public static Integer TokensPerVote;
 		public static Integer GodApplesForTwoTokens;
 		public static Integer GoldenApplesForTwoTokens;
-		public static Integer TokenIncrement;
 		public static HashMap<Player, Integer> voteData = new HashMap<Player, Integer>();
 		
 		public void onEnable() {
@@ -36,7 +35,6 @@
 			TokensPerVote = getConfig().getInt("TokensPerVote");
 			GodApplesForTwoTokens = getConfig().getInt("GodApplesForTwoTokens");
 			GoldenApplesForTwoTokens = getConfig().getInt("GoldenApplesForTwoTokens");
-			TokenIncrement = getConfig().getInt("TokensPerVote");
 	 		getLogger().info("VoteShop v0.1 enabled!");
 		}
 		public void onDisable() {

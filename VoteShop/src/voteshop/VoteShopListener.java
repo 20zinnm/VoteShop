@@ -1,14 +1,17 @@
 	package voteshop;
 	
 	import org.bukkit.Bukkit;
-	import org.bukkit.ChatColor;
-	import org.bukkit.entity.Player;
-	import org.bukkit.event.Listener;
-	import org.bukkit.event.inventory.InventoryClickEvent;
-	import org.bukkit.inventory.Inventory;
-	import org.bukkit.inventory.ItemStack;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 	
-	import com.vexsoftware.votifier.model.VotifierEvent;
+
+import api.TokensChangeEvent;
+
+import com.vexsoftware.votifier.model.VotifierEvent;
 	
 	public class VoteShopListener implements Listener {
 	
@@ -19,9 +22,9 @@
 				VoteShop.voteData.put(p, 0);
 			}
 			Integer prevTokens = VoteShop.voteData.get(p);
-			Integer newTokens = prevTokens + VoteShop.TokenIncrement;
+			Integer newTokens = prevTokens + VoteShop.TokensPerVote;
 			VoteShop.voteData.put(p, newTokens);
-			p.sendMessage(ChatColor.DARK_BLUE + "Thanks for voting! You now have 4 more tokens! New Token balance: " + ChatColor.RED + newTokens);
+			p.sendMessage(ChatColor.DARK_BLUE + "Thanks for voting! You now have " + VoteShop.TokensPerVote + " more tokens! New Token balance: " + ChatColor.RED + newTokens);
 			p.sendMessage(ChatColor.DARK_BLUE + "Use " + ChatColor.RED + "/voteshop" + ChatColor.DARK_BLUE + " to spend your tokens!");
 		}
 		
@@ -38,8 +41,10 @@
 						Integer newTokens = tokens - 12;
 						VoteShop.voteData.put(p, newTokens);
 						p.getInventory().addItem(ShopGUI.istack);
-						p.sendMessage(ChatColor.DARK_BLUE + "You purchased a voteshop sword for 12 credits! New Balance:" + ChatColor.RED + newTokens);
+						p.sendMessage(ChatColor.DARK_BLUE + "You purchased a voteshop sword for 12 credits! New Balance: " + ChatColor.RED + newTokens);
 						p.closeInventory();
+						TokensChangeEvent tce = new TokensChangeEvent(p, tokens, 12, newTokens, true);
+						Bukkit.getServer().getPluginManager().callEvent(tce);
 					}
 				}
 				if (clickedOn.equals(ShopGUI.istack2)) {
@@ -48,8 +53,10 @@
 						Integer newTokens = tokens - 16;
 						VoteShop.voteData.put(p, newTokens);
 						p.getInventory().addItem(ShopGUI.istack2);
-						p.sendMessage(ChatColor.DARK_BLUE + "You purchased a voteshop sword for 12 credits! New Balance:" + ChatColor.RED + newTokens);
+						p.sendMessage(ChatColor.DARK_BLUE + "You purchased a voteshop sword for 16 credits! New Balance: " + ChatColor.RED + newTokens);
 						p.closeInventory();
+						TokensChangeEvent tce = new TokensChangeEvent(p, tokens, 16, newTokens, true);
+						Bukkit.getServer().getPluginManager().callEvent(tce);
 					}
 				}
 				if (clickedOn.equals(ShopGUI.istack3)) {
@@ -58,8 +65,10 @@
 						Integer newTokens = tokens - VoteShop.GoldenApplesForTwoTokens;
 						VoteShop.voteData.put(p, newTokens);
 						p.getInventory().addItem(ShopGUI.istack3);
-						p.sendMessage(ChatColor.DARK_BLUE + "You purchased" + VoteShop.GoldenApplesForTwoTokens + " golden apples for 2 credits! New Balance:" + ChatColor.RED + newTokens);
+						p.sendMessage(ChatColor.DARK_BLUE + "You purchased" + VoteShop.GoldenApplesForTwoTokens + " golden apples for 2 credits! New Balance: " + ChatColor.RED + newTokens);
 						p.closeInventory();
+						TokensChangeEvent tce = new TokensChangeEvent(p, tokens, 2, newTokens, true);
+						Bukkit.getServer().getPluginManager().callEvent(tce);
 					}
 				}
 				if (clickedOn.equals(ShopGUI.istack4)) {
@@ -68,8 +77,10 @@
 						Integer newTokens = tokens - VoteShop.GoldenApplesForTwoTokens;
 						VoteShop.voteData.put(p, newTokens);
 						p.getInventory().addItem(ShopGUI.istack3);
-						p.sendMessage(ChatColor.DARK_BLUE + "You purchased " + VoteShop.GodApplesForTwoTokens + " god apples for 2 credits! New Balance:" + ChatColor.RED + newTokens);
+						p.sendMessage(ChatColor.DARK_BLUE + "You purchased " + VoteShop.GodApplesForTwoTokens + " god apples for 2 credits! New Balance: " + ChatColor.RED + newTokens);
 						p.closeInventory();
+						TokensChangeEvent tce = new TokensChangeEvent(p, tokens, 2, newTokens, true);
+						Bukkit.getServer().getPluginManager().callEvent(tce);
 					} else {
 						p.sendMessage("Not enough tokens! You need " + (VoteShop.GodApplesForTwoTokens - tokens) + " more tokens!");
 					}
